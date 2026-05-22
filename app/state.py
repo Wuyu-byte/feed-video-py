@@ -8,6 +8,7 @@ from .database import build_engine, make_session_factory
 from .mq import MQ
 
 
+APP_ROOT = Path(__file__).resolve().parent
 cfg: Config = load_config()
 engine = build_engine(cfg)
 SessionLocal = make_session_factory(engine)

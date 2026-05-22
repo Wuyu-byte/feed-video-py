@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>FeedSystem Video</title>
+    <link rel="stylesheet" href="/assets/styles.css" />
+  </head>
+  <body>
+    <header class="topbar">
+      <div class="brand">
+        <span class="brand-mark">FS</span>
+        <div>
+          <h1>FeedSystem Video</h1>
+          <p>视频流发布、浏览与互动控制台</p>
+        </div>
+      </div>
+      <div class="session">
+        <span id="sessionLabel">未登录</span>
+        <button id="logoutBtn" class="ghost hidden" type="button">退出</button>
+      </div>
+    </header>
+
+    <main class="shell">
+      <section class="auth-panel" aria-label="账号">
+        <form id="authForm" class="auth-form">
+          <div class="field">
+            <label for="username">用户名</label>
+            <input id="username" name="username" autocomplete="username" placeholder="例如 alice" />
+          </div>
+          <div class="field">
+            <label for="password">密码</label>
+            <input id="password" name="password" type="password" autocomplete="current-password" placeholder="至少 6 位" />
+          </div>
+          <div class="button-row">
+            <button data-auth="login" type="submit">登录</button>
+            <button data-auth="register" class="secondary" type="submit">注册</button>
+          </div>
+        </form>
+      </section>
+
+      <section class="publish-panel" aria-label="发布视频">
+        <div class="section-head">
+          <div>
+            <h2>发布视频</h2>
+            <p>上传视频与封面后发布到全局视频流。</p>
+          </div>
+          <span id="publishState" class="badge">等待登录</span>
+        </div>
+        <form id="publishForm" class="publish-form">
+          <div class="field">
+            <label for="title">标题</label>
+            <input id="title" name="title" maxlength="80" placeholder="给视频起个清楚的标题" required />
+          </div>
+          <div class="field">
+            <label for="description">简介</label>
+            <textarea id="description" name="description" rows="3" maxlength="240" placeholder="可选"></textarea>
+          </div>
+          <div class="upload-grid">
+            <div class="field">
+              <label for="videoFile">视频文件</label>
+              <input id="videoFile" name="videoFile" type="file" accept="video/mp4" />
+            </div>
+            <div class="field">
+              <label for="coverFile">封面图片</label>
+              <input id="coverFile" name="coverFile" type="file" accept="image/png,image/jpeg,image/webp" />
+            </div>
+          </div>
+          <div class="button-row">
+            <button id="publishBtn" type="submit">上传并发布</button>
+            <button id="clearPublishBtn" class="ghost" type="button">清空</button>
+          </div>
+        </form>
+      </section>
+
+      <section class="feed-panel" aria-label="视频流">
+        <div class="section-head">
+          <div>
+            <h2>视频流</h2>
+            <p id="feedHint">浏览最新、热门、关注和已点赞视频。</p>
+          </div>
+          <button id="refreshBtn" class="ghost" type="button">刷新</button>
+        </div>
+        <nav class="tabs" aria-label="视频流类型">
+          <button class="tab active" data-feed="latest" type="button">最新</button>
+          <button class="tab" data-feed="popular" type="button">热门</button>
+          <button class="tab" data-feed="likes" type="button">点赞榜</button>
+          <button class="tab" data-feed="following" type="button">关注</button>
+          <button class="tab" data-feed="mine" type="button">我赞过</button>
+        </nav>
+        <div id="feedList" class="feed-list" aria-live="polite"></div>
+        <div class="load-row">
+          <button id="loadMoreBtn" class="secondary" type="button">加载更多</button>
+        </div>
+      </section>
+
+      <aside class="detail-panel" aria-label="视频详情">
+        <div class="section-head">
+          <div>
+            <h2>详情</h2>
+            <p id="detailHint">选择一个视频查看评论。</p>
+          </div>
+        </div>
+        <div id="detailView" class="detail-empty">暂无选中的视频</div>
+      </aside>
+    </main>
+
+    <div id="toast" class="toast hidden" role="status" aria-live="polite"></div>
+    <script src="/assets/app.js" type="module"></script>
+  </body>
+</html>

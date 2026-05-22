@@ -3,6 +3,7 @@ from __future__ import annotations
 from contextlib import asynccontextmanager
 
 from fastapi import FastAPI, HTTPException
+from fastapi.responses import FileResponse
 from fastapi.staticfiles import StaticFiles
 import uvicorn
 
@@ -32,6 +33,12 @@ def create_app() -> FastAPI:
     app = FastAPI(title="feedsystem_video_py", lifespan=lifespan)
     state.UPLOAD_ROOT.mkdir(parents=True, exist_ok=True)
     app.mount("/static", StaticFiles(directory=str(state.UPLOAD_ROOT)), name="static")
+    web_root = state.APP_ROOT / "web"
+    app.mount("/assets", StaticFiles(directory=str(web_root)), name="assets")
+
+    @app.get("/", include_in_schema=False)
+    def index():
+        return FileResponse(web_root / "index.html")
 
     app.add_exception_handler(HTTPException, http_exception_handler)
 
