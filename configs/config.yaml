@@ -1,0 +1,27 @@
+server:
+  port: 8080
+
+database:
+  host: 119.3.255.75
+  port: 3306
+  user: root
+  password: luyu123
+  dbname: feedsystem
+
+redis:
+  host: 119.3.255.75
+  port: 6379
+  password: luyu123
+  db: 0
+
+rabbitmq:
+  host: localhost
+  port: 5672
+  username: admin
+  password: password123
+
+observability:
+  pprof:
+    enabled: false
+    api_addr: localhost:6060
+    worker_addr: localhost:6061
